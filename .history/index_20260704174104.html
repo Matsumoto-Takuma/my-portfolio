@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Takuma Matsumoto - Portfolio</title>
+    <style>
+        /* 基本スタイル設定 */
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* プロフィールセクション */
+        .profile-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .profile-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+            color: #1a2a3a;
+        }
+
+        .profile-meta {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .profile-meta p {
+            margin: 5px 0;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #1a2a3a;
+            display: inline-block;
+            width: 90px;
+        }
+
+        /* 学歴セクション */
+        .education-timeline {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .education-timeline h2 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            color: #1a2a3a;
+        }
+
+        .timeline-item {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .timeline-date {
+            color: #777;
+            margin-right: 15px;
+        }
+
+        /* タブセクション */
+        .tabs-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .tabs {
+            display: flex;
+            background: #e9ecef;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #6c757d;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .tab-button:hover {
+            background: #e2e6ea;
+            color: #495057;
+        }
+
+        .tab-button.active {
+            background: #fff;
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            margin-bottom: -2px;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* コンテンツ内のスタイル */
+        .content-item {
+            margin-bottom: 25px;
+        }
+
+        .content-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-item h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.15rem;
+            color: #1a2a3a;
+        }
+
+        .content-item .date {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <section class="profile-card">
+            <div class="profile-header">
+                <h1>Takuma Matsumoto</h1>
+            </div>
+            
+            <div class="profile-meta">
+                <p><span class="label">所属大学</span>東北大学大学院 工学研究科 航空宇宙工学専攻</p>
+                <p><span class="label">研究室</span>桒原研究室（宇宙インフラ工学研究室）</p>
+            </div>
+
+            <div class="education-timeline">
+                <h2>学歴</h2>
+                <div class="timeline-item">
+                    <span class="timeline-date">2019年4月 - 2024年3月</span>
+                    <span>舞鶴工業高等専門学校 電気情報工学科 卒業</span>
+                <div class="timeline-item">
+                    <span class="timeline-date">202年4月 - 2026年3月</span>
+                    <span>舞鶴工業高等専門学校 専攻科 電気電子システム工学専攻 修了</span>
+                <div class="timeline-item">
+                    <span class="timeline-date">2026年4月 - 現在</span>
+                    <span>東北大学大学院 工学研究科 航空宇宙工学専攻 博士前期課程 在学</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-button active" onclick="openTab(event, 'contests')">コンテスト</button>
+                <button class="tab-button" onclick="openTab(event, 'works')">作品集</button>
+                <button class="tab-button" onclick="openTab(event, 'projects')">プロジェクト</button>
+            </div>
+
+            <div id="contests" class="tab-content active">
+                <div class="content-item">
+                    <h3>ここにコンテスト名や大会名を記入</h3>
+                    <div class="date">202X年X月</div>
+                    <p>コンテストの概要、担当した役割、残した成果や順位などをここに記述します。</p>
+                </div>
+            </div>
+
+            <div id="works" class="tab-content">
+                <div class="content-item">
+                    <h3>ここに製作したソフトウェアや成果物の名称</h3>
+                    <div class="date">202X年X月</div>
+                    <p>使用言語やツール、システムの概要、こだわった技術的なポイントなどを記述します。</p>
+                </div>
+            </div>
+
+            <div id="projects" class="tab-content">
+                <div class="content-item">
+                    <h3>ここに研究プロジェクトや所属チームでの活動名</h3>
+                    <div class="date">2026年 - 現在</div>
+                    <p>プロジェクトにおける自身の研究テーマ、実装しているアルゴリズム、今後の学会発表の予定などを記述します。</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            // すべてのコンテンツを非表示にする
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // すべてのタブボタンの選択状態を解除する
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            // 指定されたタブコンテンツを表示し、ボタンを選択状態にする
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>
