@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Takuma Matsumoto - Portfolio</title>
+    <style>
+
+    /* --- [NEW: プロフィール写真用のCSSを追加] --- */
+        .profile-header {
+            display: flex; /* 写真と名前を横並びにするための設定 */
+            justify-content: space-between; /* 名前を左、写真を右に配置 */
+            align-items: center; /* 上下中央揃え */
+            position: relative; /* 基準点に設定 */
+        }
+
+        .profile-photo {
+            width: 120px; /* 写真の横幅 */
+            height: 120px; /* 写真の縦幅を同じにして正方形に */
+            border-radius: 50%; /* 正円にする */
+            object-fit: cover; /* 画像を円に合わせて自動調整（歪まない） */
+            border: 4px solid #fff; /* 白い枠線 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* 軽い影で立体感を */
+            margin-left: 20px; /* 名前との間に余白を確保 */
+            background-color: #eee; /* 写真がない場合の仮の色 */
+            overflow: hidden; /* 円からはみ出した部分を隠す */
+        }
+
+        /* スマートフォン用のレスポンシブデザイン */
+        @media (max-width: 600px) {
+            .profile-header {
+                flex-direction: column-reverse; /* 写真を上に、名前を下に並べる */
+                align-items: center;
+                text-align: center;
+            }
+            .profile-photo {
+                margin-left: 0;
+                margin-bottom: 20px; /* 下に余白 */
+            }
+        }
+        /* --- [ここまでがNEW CSS] --- */
+
+
+        /* 基本スタイル設定 */
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* プロフィールセクション */
+        .profile-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .profile-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+            color: #1a2a3a;
+        }
+
+        .profile-meta {
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .profile-meta p {
+            margin: 5px 0;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #1a2a3a;
+            display: inline-block;
+            width: 90px;
+        }
+
+        /* 学歴セクション */
+        .education-timeline {
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .education-timeline h2 {
+            font-size: 1.2rem;
+            margin-top: 0;
+            color: #1a2a3a;
+        }
+
+        .timeline-item {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .timeline-date {
+            color: #777;
+            margin-right: 15px;
+        }
+
+        /* タブセクション */
+        .tabs-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .tabs {
+            display: flex;
+            background: #e9ecef;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            background: none;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #6c757d;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .tab-button:hover {
+            background: #e2e6ea;
+            color: #495057;
+        }
+
+        .tab-button.active {
+            background: #fff;
+            color: #0056b3;
+            border-bottom: 2px solid #0056b3;
+            margin-bottom: -2px;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* コンテンツ内のスタイル */
+        .content-item {
+            margin-bottom: 25px;
+        }
+
+        .content-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-item h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.15rem;
+            color: #1a2a3a;
+        }
+
+        .content-item .date {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <section class="profile-card">
+
+            <div class="profile-header">
+                <h1>Takuma Matsumoto</h1>
+                <!-- ▼▼▼ NEW: 右上に写真を追加 ▼▼▼ -->
+                <!-- srcは仮の画像（グレーの円）です。下の「使い方」を参考に、自分の写真に変更してください。 -->
+                <img src="my-photo.jpg" alt="Takuma Matsumoto's Photo" class="profile-photo">
+                <!-- ▲▲▲ NEW ▲▲▲ -->
+            </div>
+
+            <div class="profile-header">
+                <h1>松本 拓真</h1>
+            </div>
+            <div class="profile-header">
+                <h1>Matsumoto Takuma</h1>
+            </div>
+            
+            <div class="profile-meta">
+                <p><span class="label">所属大学</span>東北大学大学院 工学研究科 航空宇宙工学専攻</p>
+                <p><span class="label">研究室</span>桒原研究室（宇宙インフラ工学研究室）</p>
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/19GJZnahoV/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-btn facebook-btn">
+                    Facebookプロフィール
+                </a>           
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.space-infrastructure.gxt.ggi.tohoku.ac.jp/">
+                    桒原研究室HP
+                </a>                
+            </div>
+
+            <div class="education-timeline">
+                <h2>経歴</h2>
+                <div class="timeline-item">
+                    <span class="timeline-date">2019年4月 - 2024年3月</span>
+                    <span>舞鶴工業高等専門学校 電気情報工学科</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2020年2月 - 現在</span>
+                    <span>舞鶴工業高等専門学校 天文宇宙SG創設</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2021年4月 - 2024年3月</span>
+                    <span>ヒューマンネットワーク高専 HNK 事務局学生スタッフ</span>                   
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2024年4月 - 2026年3月</span>
+                    <span>舞鶴工業高等専門学校 専攻科 電気電子システム工学専攻</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2025年7月 - 2026年3月</span>
+                    <span>家庭教師 事業展開</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2025年4月 - 現在</span>
+                    <span>テックランチャー㈱ インターンシップ生</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2026年4月 - 現在</span>
+                    <span>東北大学大学院 工学研究科 航空宇宙工学専攻 博士前期課程 在学中</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-button active" onclick="openTab(event, 'contests')">コンテスト</button>
+                <button class="tab-button" onclick="openTab(event, 'works')">作品集</button>
+                <button class="tab-button" onclick="openTab(event, 'projects')">プロジェクト</button>
+                <button class="tab-button" onclick="openTab(event, 'licence')">資格</button>
+            </div>
+
+            <div id="contests" class="tab-content active">
+                <div class="content-item">
+                    <h3>主なコンテスト/大会受賞歴</h3>
+                    <div class="date">2026年3月</div>
+                    <p>第五回全国高専宇宙コンテスト 最優秀賞</p>
+                    <a href="https://www.ele.niihama-nct.ac.jp/kosen-space/contest.html">
+                       第五回全国高専宇宙コンテスト HP
+                    </a>     
+                    <div class="date">2026年3月</div>
+                    <p>舞鶴高専専攻科 成績優秀賞 首席修了</p>
+                    <div class="date">2024年3月</div>
+                    <p>高専キャリア 春のビジッカソン 高専キャリア賞</p>
+                    <div class="date">2024年3月</div>
+                    <p>舞鶴工業高等専門学校 精勤賞</p>
+                    <div class="date">2022年10月</div>
+                    <p>全国高等専門学校第33回プログラミングコンテスト 課題部門 敢闘賞</p>
+                    <a href="https://www.maizuru-ct.ac.jp/2022/10/27/41159/">
+                       舞鶴高専 HP
+                    </a> 
+                    <div class="date">2019年2月</div>
+                    <p>第20回グリーンツーリズム俳句募集 入選</p>
+                    <div class="date">2017年11月</div>
+                    <p>全日本小中学生ロボット選手権 2017 舞鶴高専大会 敢闘賞</p>
+                    <div class="date">2017年4月</div>
+                    <p>第17回 関西地区ゴム銃射撃大会 新人賞</p>
+                    <div class="date">2016年9月</div>
+                    <p>全国少年少女 チャレンジ創造コンテスト京都地区大会優勝 全国大会出場</p>
+                    <div class="date">2016年1月</div>
+                    <p>第10回 トイコンテストグランプリ レーシング部門優勝 大会新記録更新 29.47m走破!!</p>
+                    <div class="date">2015年12月</div>
+                    <p>サッカーロボット製作・サッカー大会 第3位</p>
+                    <div class="date">2015年8月</div>
+                    <p>全国少年少女 チャレンジ創造コンテスト京都地区大会2位</p>       
+                    <div class="date">2015年2月</div>
+                    <p>平成26年度「京少年モノづくり倶楽部」皆勤賞</p>
+                </div>
+            </div>
+
+            <div id="works" class="tab-content">
+                <div class="content-item">
+                    <h3>ここに製作したソフトウェアや成果物の名称</h3>
+                    <div class="date">準備中</div>
+                    <p>使用言語やツール、システムの概要、こだわった技術的なポイントなどを記述します。</p>
+                </div>
+            </div>
+
+            <div id="projects" class="tab-content">
+                <div class="content-item">
+                    <h3>ここに研究プロジェクトや所属チームでの活動名</h3>
+                    <div class="date">2026年 - 現在</div>
+                    <p>科学技術振興機構(JST) 経済安全保障重要技術育成プログラム</p>
+                    <div class="date">2025年 - 現在</div>
+                    <p>対話型癒しロボ「Fuwawa」プロジェクト</p>
+                    <div class="date">2024年 - 現在</div>
+                    <p>KOSEN-2R衛星プロジェクト ソフトウェア開発担当/舞鶴高専GP代表 (JAXA革新4号)</p>
+                    <div class="date">2021年 - 2024</div>
+                    <a href="https://www.ele.niihama-nct.ac.jp/kosen-space/contest.html">
+                       KOSENCommunity HP
+                    </a> 
+                    <p>KOSEN-1衛星プロジェクト 運用・高専60th イベント企画</p>
+                    <div class="date">2021年 - 2022</div>
+                    <p>舞鶴高専 天文宇宙SG 模擬人工衛星・CanSat製作プロジェクト</p>
+                    <div class="date">2021年 - 2022</div>
+                    <p>舞鶴高専プログラマーズコミュニティ 高専プロコン Develoプロジェクト</p>
+                    <div class="date">2021年 - 2022</div>
+                    <p>舞鶴高専プログラマーズコミュニティ C言語講習会講師担当</p>
+                    <div class="date">2019年 - 2020</div>
+                    <p>舞鶴高専接道研究同好会 小浜線PRプロジェクト</p>
+
+                </div>
+            </div>
+
+            <div id="licence" class="tab-content">
+                <div class="content-item">
+                    <h3>主な資格・免許</h3>
+                    <div class="date">2026年2月</div>
+                    <p>スキー検定2級 合格</p>
+                    <div class="date">2022年4月</div>
+                    <p>第一種普通自動車運転免許 取得</p>
+                    <div class="date">2021年8月</div>
+                    <p>第二種電気工事士 取得</p>
+                    <div class="date">2020年1月</div>
+                    <p>防災士認定 取得</p>
+                    <div class="date">2016年10月</div>
+                    <p>天文宇宙検定3級 合格</p>
+                    <div class="date">2016年8月</div>
+                    <p>日本習字 毛筆準7段位, 硬筆準4段合格</p>                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            // すべてのコンテンツを非表示にする
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // すべてのタブボタンの選択状態を解除する
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            // 指定されたタブコンテンツを表示し、ボタンを選択状態にする
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+</body>
+</html>
