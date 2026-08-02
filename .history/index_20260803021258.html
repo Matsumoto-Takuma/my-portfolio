@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Takuma Matsumoto - Portfolio</title>
+<style>
+    /* 宇宙空間の背景と星空エフェクト */
+    body {
+        font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        line-height: 1.6;
+        color: #e2e8f0; /* 読みやすい明るいグレー */
+        background-color: #030614; /* 深宇宙のダークブルー/ブラック */
+        background-image: 
+            radial-gradient(1px 1px at 20px 30px, #ffffff, rgba(0,0,0,0)),
+            radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+            radial-gradient(1.5px 1.5px at 90px 40px, #ffffff, rgba(0,0,0,0)),
+            radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.6), rgba(0,0,0,0)),
+            radial-gradient(2px 2px at 160px 120px, #ffffff, rgba(0,0,0,0));
+        background-repeat: repeat;
+        background-size: 200px 200px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+
+    /* SF・ガラス風の半透明パネル */
+    .profile-card, .tabs-container {
+        /* ▼ 透明度を下げて「分厚い金属の塊」を表現するグラデーション ▼ */
+        background: linear-gradient(145deg, rgba(145, 150, 155, 0.85), rgba(55, 60, 65, 0.95));
+        backdrop-filter: blur(5px);
+        /* ▼ 金属のエッジに光が反射している立体感（上・左を明るく、下・右を暗く） ▼ */
+        border-top: 1px solid rgba(255, 255, 255, 0.4);
+        border-left: 1px solid rgba(255, 255, 255, 0.2);
+        border-right: 1px solid rgba(0, 0, 0, 0.6);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+        /* ▼ 宇宙空間に浮かぶ重い影 ▼ */
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
+        
+        padding: 30px;
+        border-radius: 12px;
+        margin-bottom: 40px;
+    }
+
+    /* プロフィール写真とヘッダー */
+    .profile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+
+    .profile-header h1 {
+        margin: 0;
+        font-size: 2.2rem;
+        color: #ffffff;
+        text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        letter-spacing: 1px;
+    }
+
+    .profile-photo {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #00d2ff;
+        box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+        margin-left: 20px;
+        background-color: #1a1a2e;
+    }
+
+    @media (max-width: 600px) {
+        .profile-header {
+            flex-direction: column-reverse;
+            align-items: center;
+            text-align: center;
+        }
+        .profile-photo {
+            margin-left: 0;
+            margin-bottom: 20px;
+        }
+    }
+
+    /* テキストとラベル */
+    .profile-meta p {
+        margin: 10px 0;
+        font-size: 1.05rem;
+    }
+
+    .label {
+        font-weight: bold;
+        color: #00d2ff;
+        display: inline-block;
+        width: 100px;
+        letter-spacing: 1px;
+    }
+
+    /* ソーシャルリンクボタン */
+    .social-links {
+        margin: 25px 0;
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .social-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 44px; /* 高さを44pxで完全固定 */
+        padding: 0 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        box-sizing: border-box; 
+        border: 1px solid transparent; 
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+        
+        /* ▼▼ 追加：文字をド真ん中に配置するための設定 ▼▼ */
+        line-height: 1; /* 余分な行間（上下の隙間）をリセット */
+        gap: 8px;       /* アイコンと文字がある場合、間隔をきれいにあける */
+        margin: 0;      /* 意図しない外側の余白をリセット */
+    }
+
+    .facebook-btn {
+        background-color: #1877F2;
+        color: #ffffff;
+        border: 1px solid #1877F2;
+    }
+    
+    .facebook-btn:hover {
+        background-color: transparent;
+        color: #1877F2;
+        box-shadow: 0 0 15px rgba(24, 119, 242, 0.5);
+    }
+
+    /* 学歴セクション */
+    .education-timeline {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 25px;
+    }
+
+    .education-timeline h2 {
+        font-size: 1.3rem;
+        margin-top: 0;
+        color: #ffffff;
+        margin-bottom: 20px;
+    }
+
+    .timeline-item {
+        margin-bottom: 15px;
+        font-size: 0.95rem;
+        padding-left: 15px;
+        border-left: 2px solid #00d2ff;
+    }
+
+    .timeline-date {
+        color: #94a3b8;
+        font-weight: bold;
+        margin-right: 15px;
+        display: inline-block;
+        min-width: 160px;
+    }
+
+    /* タブセクション */
+    .tabs-container {
+        padding: 0;
+        overflow: hidden;
+    }
+
+ /* ▼▼▼ タブ全体を囲む溝（ベース） ▼▼▼ */
+    .tabs {
+        display: flex;
+        background: #1e293b; /* パネル奥の暗い金属色 */
+        border-radius: 8px 8px 0 0; /* 上の角だけ少し丸める */
+        border-bottom: 2px solid #94a3b8; /* メインパネルとの接合部を強調 */
+        overflow: hidden;
+    }
+
+    /* ▼▼▼ 各タブボタン（未選択状態：暗いガンメタ） ▼▼▼ */
+    /* .tabsの中にあるbuttonタグ、または .tab クラスすべてに適用 */
+    .tabs button,
+    .tabs .tab {
+        flex: 1;
+        padding: 15px;
+        /* 沈んだ暗い金属のグラデーション */
+        background: linear-gradient(180deg, #334155, #0f172a); 
+        color: #94a3b8;
+        border: none;
+        /* 金属パネル同士の継ぎ目（左を明るく、右を暗くして立体感を出す） */
+        border-right: 1px solid #000000;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0; /* 意図しない余白を消去 */
+    }
+
+    /* マウスを乗せた時の反射 */
+    .tabs button:hover,
+    .tabs .tab:hover {
+        background: linear-gradient(180deg, #475569, #1e293b);
+        color: #f8fafc;
+    }
+
+    /* ▼▼▼ 選択中のタブ（アクティブ状態：手前に出っ張る重厚アルミ） ▼▼▼ */
+    .tabs button.active,
+    .tabs .tab.active {
+        /* 下に続くメインパネルと全く同じアルミグラデーション */
+        background: linear-gradient(145deg, rgba(145, 150, 155, 0.95), rgba(55, 60, 65, 0.95));
+        color: #ffffff;
+        /* パネル上部のエッジに光が当たっている反射を表現 */
+        box-shadow: inset 0 3px 0 #cbd5e1; 
+    }
+
+    .tab-content {
+        display: none;
+        padding: 30px;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+
+    /* コンテンツアイテムのカード化 */
+    .content-item {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .content-item:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(0, 210, 255, 0.3);
+    }
+
+    .content-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .content-item h3 {
+        margin: 0 0 8px 0;
+        font-size: 1.25rem;
+        color: #ffffff;
+    }
+
+    .content-item .date {
+        font-size: 0.9rem;
+        color: #00d2ff;
+        margin-bottom: 10px;
+        font-family: monospace;
+    }
+
+    .content-item p {
+        color: #cbd5e1;
+        margin: 0;
+    }
+    .x-btn {
+        background-color: #000000;
+        color: #ffffff;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .x-btn:hover {
+        background-color: transparent;
+        color: #ffffff;
+        border-color: #ffffff;
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    }
+
+
+    /* ▼▼▼ リンクプレビューカードのスタイル ▼▼▼ */
+    .preview-card {
+        display: flex;
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 10px;
+        overflow: hidden;
+        text-decoration: none;
+        color: #e2e8f0;
+        margin: 20px 0;
+        transition: all 0.3s ease;
+        max-width: 500px;
+        height: 110px; /* カードの高さを固定 */
+    }
+
+    .preview-card:hover {
+        background: rgba(30, 41, 59, 0.8);
+        border-color: rgba(0, 210, 255, 0.5); /* ホバー時に青く発光 */
+        box-shadow: 0 4px 20px rgba(0, 210, 255, 0.2);
+        transform: translateY(-2px); /* 少し浮き上がる */
+    }
+
+    .preview-img {
+        width: 110px;
+        min-width: 110px;
+        background-color: #0f172a;
+    }
+
+    .preview-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .preview-text {
+        padding: 12px 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .preview-title {
+        font-weight: bold;
+        font-size: 1.05rem;
+        color: #ffffff;
+        margin-bottom: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* 長い場合は「...」で省略 */
+    }
+
+    .preview-desc {
+        font-size: 0.85rem;
+        color: #94a3b8;
+        margin-bottom: 6px;
+        line-height: 1.4;
+        /* 2行を超えたら「...」で省略する設定 */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .preview-url {
+        font-size: 0.8rem;
+        color: #00d2ff;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    /* ▼▼▼ YouTube直接埋め込み用のスタイル ▼▼▼ */
+    .youtube-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%; /* 16:9のアスペクト比を維持 */
+        margin: 25px 0;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* ダークテーマに合わせた影 */
+    }
+
+    .youtube-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+/* ▼▼▼ 研究室HPボタン（アルミプレート風）のスタイル ▼▼▼ */
+    .lab-btn {
+        background: linear-gradient(145deg, #e2e8f0, #94a3b8);
+        border-color: #94a3b8; /* 他と同じ1pxの枠にする */
+        /* 金属の立体感は枠線ではなく「内側への影」で作る */
+        box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #475569, 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .lab-btn:hover {
+        background: linear-gradient(145deg, #f8fafc, #cbd5e1);
+        box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #475569, 0 0 15px rgba(0, 210, 255, 0.5);
+    }
+
+    .lab-btn img {
+        height: 34px; /* ▼ 20pxから34pxに拡大（ボタンの枠に収まる最大サイズ） ▼ */
+        width: auto;
+        display: block; 
+        filter: drop-shadow(0px 1px 1px rgba(255,255,255,0.8));
+    }
+
+    /* ▼▼▼ 更新日と署名（機体印字風）のスタイル ▼▼▼ */
+    .footer-signature {
+        text-align: right;          /* 右寄せ */
+        margin-top: 60px;           /* 上のパネルとの余白をしっかり取る */
+        margin-bottom: 30px;        /* 画面一番下との余白 */
+        padding-right: 20px;        /* 右端からの少しのゆとり */
+        color: #64748b;             /* 目立ちすぎない、少し暗めのシルバーグレー */
+        font-size: 0.85rem;         /* 少し小さめの文字 */
+        font-family: 'Courier New', Consolas, monospace; /* プログラミングや計器類に使われる等幅フォント */
+        letter-spacing: 1.5px;      /* 文字の間隔を少し空けて無機質なカッコよさを出す */
+        line-height: 1.6;           /* 行間 */
+    }
+
+    /* ▼▼▼ FMまいづる出演実績のカード（機材のモニターパネル風） ▼▼▼ */
+    .media-card {
+        /* パネルの内側に少し窪んだような暗めのガンメタル */
+        background: linear-gradient(145deg, rgba(30, 35, 40, 0.9), rgba(15, 20, 25, 0.95));
+        border-top: 1px solid rgba(0, 0, 0, 0.8);
+        border-left: 1px solid rgba(0, 0, 0, 0.6);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 25px;
+        display: flex;
+        gap: 20px;
+        align-items: center; /* 写真とテキストを縦の中央で揃える */
+        box-shadow: inset 0 4px 10px rgba(0,0,0,0.6); /* 内側に落ち込む影 */
+    }
+
+    /* 記念写真の装飾 */
+    .media-photo {
+        width: 160px; /* 写真の幅 */
+        height: auto;
+        border-radius: 4px;
+        border: 2px solid #64748b; /* 写真の周りを囲む金属フレーム */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* 写真自体が少し浮き出る影 */
+    }
+
+    /* 右側のテキストエリア */
+    .media-info {
+        flex: 1;
+        color: #e2e8f0;
+    }
+
+    .media-title {
+        margin: 0 0 8px 0;
+        font-size: 1.1rem;
+        color: #f8fafc;
+        letter-spacing: 0.5px;
+    }
+
+    /* 日付は計器風のフォントに */
+    .media-date {
+        margin: 0 0 12px 0;
+        font-size: 0.85rem;
+        color: #94a3b8;
+        font-family: 'Courier New', Consolas, monospace;
+    }
+
+    .media-desc {
+        margin: 0;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: #cbd5e1;
+    }
+
+    /* ▼▼▼ スマホ表示用の調整（画面が狭いときは縦並びにする） ▼▼▼ */
+    @media (max-width: 600px) {
+        .media-card {
+            flex-direction: column;
+            text-align: center;
+        }
+        .media-photo {
+            width: 100%;
+            max-width: 250px; /* スマホでも写真が大きくなりすぎないように制御 */
+        }
+    }
+
+</style>
+</head>
+<body>
+
+    <div class="container">
+
+        <section class="profile-card">
+
+            <div class="profile-header">
+                <h1>Matsumoto Takuma</h1>
+                <!-- ▼▼▼ NEW: 右上に写真を追加 ▼▼▼ -->
+                <!-- srcは仮の画像（グレーの円）です。下の「使い方」を参考に、自分の写真に変更してください。 -->
+                <img src="my-photo.JPG" alt="Matsumoto Takuma's Photo" class="profile-photo">
+                <!-- ▲▲▲ NEW ▲▲▲ -->
+            </div>
+
+            <div class="profile-header">
+                <h1>松本 拓真</h1>
+            </div>
+            
+            <div class="profile-meta">
+                <p><span class="label">所属大学</span><br>東北大学大学院 工学研究科 航空宇宙工学専攻</p>
+                <p><span class="label">研究室</span><br>桒原研究室（宇宙インフラ工学研究室）</p>
+            </div>
+
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/19GJZnahoV/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-btn facebook-btn">
+                    Facebookプロフィール
+                </a>   
+                <a href="https://x.com/T_SpaceLab2013" target="_blank" rel="noopener noreferrer" class="social-btn x-btn">
+                    X (Twitter)
+                </a>
+                <a href="https://www.space-infrastructure.gxt.ggi.tohoku.ac.jp/" class="social-btn lab-btn">
+                    <img src="picture2.png" alt="Space Infrastructure Engineering Lab">
+                </a>  
+            </div>
+
+            <div class="education-timeline">
+                <h2>経歴</h2>
+                <div class="timeline-item">
+                    <span class="timeline-date">2019年4月 - 2024年3月</span><br>
+                    <span>舞鶴工業高等専門学校 電気情報工学科</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2020年2月 - 現在</span><br>
+                    <span>舞鶴工業高等専門学校 天文宇宙SG創設</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2021年4月 - 2024年3月</span><br>
+                    <span>ヒューマンネットワーク高専 HNK 事務局学生スタッフ</span>                   
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2024年4月 - 2026年3月</span><br>
+                    <span>舞鶴工業高等専門学校 専攻科 電気電子システム工学専攻</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2025年7月 - 2026年3月</span><br>
+                    <span>家庭教師 事業展開</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2025年4月 - 現在</span><br>
+                    <span>テックランチャー㈱ インターンシップ生</span>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-date">2026年4月 - 現在</span><br>
+                    <span>東北大学大学院 工学研究科 航空宇宙工学専攻 博士前期課程 在学中</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="tabs-container">
+            <div class="tabs">
+                <button class="tab-button active" onclick="openTab(event, 'contests')">コンテスト</button> 
+                <button class="tab-button" onclick="openTab(event, 'projects')">プロジェクト</button> 
+                <button class="tab-button" onclick="openTab(event, 'licence')">資格</button>
+                <button class="tab-button" onclick="openTab(event, 'appearances')">出演等</button>
+
+                <!-- ▼▼▼ 作品集タブ　非公開中 ▼▼▼ 
+                <button class="tab-button" onclick="openTab(event, 'works')">作品集</button>
+                -->
+
+            </div>
+            
+
+            <div id="contests" class="tab-content active">
+                <div class="content-item">
+                    <h3>主なコンテスト/大会受賞歴</h3>
+                    <div class="date">2026年3月</div>
+                    <p>第五回全国高専宇宙コンテスト 最優秀賞</p>
+                    <a href="https://www.ele.niihama-nct.ac.jp/kosen-space/contest.html">
+                       第五回全国高専宇宙コンテスト HP
+                    </a>     
+                    <div class="date">2026年3月</div>
+                    <p>舞鶴高専専攻科 成績優秀賞 首席修了</p>
+                    <div class="date">2024年3月</div>
+                    <p>高専キャリア 春のビジッカソン 高専キャリア賞</p>
+                    <div class="date">2024年3月</div>
+                    <p>舞鶴工業高等専門学校 精勤賞</p>
+                    <div class="date">2022年10月</div>
+                    <p>全国高等専門学校第33回プログラミングコンテスト 課題部門 敢闘賞</p>
+                    <a href="https://www.maizuru-ct.ac.jp/2022/10/27/41159/">
+                       舞鶴高専 HP
+                    </a> 
+                    <div class="date">2019年2月</div>
+                    <p>第20回グリーンツーリズム俳句募集 入選</p>
+                    <div class="date">2017年11月</div>
+                    <p>全日本小中学生ロボット選手権 2017 舞鶴高専大会 敢闘賞</p>
+                    <div class="date">2017年4月</div>
+                    <p>第17回 関西地区ゴム銃射撃大会 新人賞</p>
+                    <div class="date">2016年9月</div>
+                    <p>全国少年少女 チャレンジ創造コンテスト京都地区大会優勝 全国大会出場</p>
+                    <div class="date">2016年1月</div>
+                    <p>第10回 トイコンテストグランプリ レーシング部門優勝 大会新記録更新 29.47m走破!!</p>
+                    <div class="date">2015年12月</div>
+                    <p>サッカーロボット製作・サッカー大会 第3位</p>
+                    <div class="date">2015年8月</div>
+                    <p>全国少年少女 チャレンジ創造コンテスト京都地区大会2位</p>       
+                    <div class="date">2015年2月</div>
+                    <p>平成26年度「京少年モノづくり倶楽部」皆勤賞</p>
+                </div>
+            </div>
+
+            <div id="works" class="tab-content">
+                <div class="content-item">
+                    <h3>個人製作物</h3>
+                    <div class="date">準備中</div>
+                    <p>使用言語やツール、システムの概要、こだわった技術的なポイントなどを記述します。</p>
+                    <div class="date">since 2010</div>
+                    <p>小学2年生で初めての電子工作 分解した部品で扇風機を自作</p>
+                </div>
+            </div>
+
+
+            <div id="projects" class="tab-content">
+                <div class="content-item">
+                    <h3>プロジェクト一覧</h3>
+                    <div class="date">2026年 - 現在</div>
+                    <p>科学技術振興機構(JST) 経済安全保障重要技術育成プログラム</p>
+                    <div class="date">2025年 - 現在</div>
+                    <p>対話型癒しロボ「Fuwawa」プロジェクト</p>
+                    <div class="date">2024年 - 現在</div>
+                    <p>KOSEN-2R衛星プロジェクト ソフトウェア開発担当/舞鶴高専GP代表 (JAXA革新4号)</p>
+                    <div class="date">2021年 - 2024</div>
+                    <a href="https://www.kenkai.jaxa.jp/kakushin/interview/04/interview04_12.html">
+                          JAXA研究開発部門HP 
+                    </a>
+                    <br>
+                    <a href="https://www.youtube.com/watch?v=REvfb0KvU_Y">
+                       革新的衛星技術実証4号機（小型実証衛星4号機）打上げライブ中継
+                    </a> 
+                    <br>
+                    <a href="https://kosencom.commmune.com/view/post/0/2617283">
+                       KOSEN community 超小型衛星で『姿勢推定』の技術実証に挑む
+                    </a> 
+
+                    <p>KOSEN-1衛星プロジェクト 運用・高専60th イベント企画</p>
+                    <div class="date">2021年 - 2022</div>
+                    <p>舞鶴高専 天文宇宙SG 模擬人工衛星・CanSat製作プロジェクト</p>
+                    <div class="date">2021年 - 2022</div>
+                    <p>舞鶴高専プログラマーズコミュニティ 高専プロコン Develoプロジェクト</p>
+                    <div class="date">2021年 - 2022</div>
+                    <p>舞鶴高専プログラマーズコミュニティ C言語講習会講師担当</p>
+                    <div class="date">2019年 - 2020</div>
+                    <p>舞鶴高専鉄道研究同好会 小浜線PRプロジェクト</p>
+
+                </div>
+            </div>
+
+            <div id="licence" class="tab-content">
+                <div class="content-item">
+                    <h3>主な資格・免許</h3>
+                    <div class="date">2026年2月</div>
+                    <p>スキー検定2級 合格</p>
+                    <div class="date">2022年4月</div>
+                    <p>第一種普通自動車運転免許 取得</p>
+                    <div class="date">2021年8月</div>
+                    <p>第二種電気工事士 取得</p>
+                    <div class="date">2020年1月</div>
+                    <p>防災士認定 取得</p>
+                    <div class="date">2016年10月</div>
+                    <p>天文宇宙検定3級 合格</p>
+                    <div class="date">2016年8月</div>
+                    <p>日本習字 毛筆準7段位, 硬筆準4段合格</p>                    
+                </div>
+            </div>
+
+            <div id="appearances" class="tab-content">
+                <div class="content-item">
+                    <h3>出演・プロジェクト広報等コンテンツ</h3>
+
+                    <div class="date">2026年5月</div>
+                    <div class="media-card">
+                        <!-- 記念写真の画像ファイル名を src="..." に指定してください -->
+                        <img src="KOSENCom_2.avif" alt="開発時の記念写真" class="media-photo">
+                        <div class="media-info">
+                            <h4 class="media-title">KOSEN community『段ボールアンテナから宇宙へ。超小型衛星で「姿勢推定」の技術実証に挑む』</h4>
+                            <p class="media-date">DATE: 2026.05.20</p>
+                            <p class="media-desc"> 天文宇宙SG創設から衛星開発に至るまでの充実した学生活動をお伝えしました.</p>
+                            <a href="https://kosencom.commmune.com/view/post/0/2617283">
+                            KOSEN community HP
+                            </a> 
+                        </div>
+                    </div>
+                    
+                    <div class="date">2026年3月</div>
+                    <div class="media-card">
+                        <img src="KOSENCom_1.png" alt="講演予告時の写真" class="media-photo">
+                        <div class="media-info">
+                            <h4 class="media-title">第5回進学オンラインイベント"専攻科からの大学院進学:戦略的「リベンジ」と研究のリアル" (出演)</h4>
+                            <p class="media-date">DATE: 2026.03.03</p>
+                            <p class="media-desc"> 専攻科からの大学院進学についてお話しさせていただきました.</p>
+                            <a href="https://kosencom.commmune.com/view/event/26321">
+                             KOSEN community イベントページ
+                            </a> 
+                        </div>
+                    </div>
+
+
+
+                    <div class="date">2026年1月</div>
+                    <div class="media-card">
+                        <!-- 記念写真の画像ファイル名を src="..." に指定してください -->
+                        <img src="picture_FM.JPG" alt="ラジオ出演時の記念写真" class="media-photo">
+                        <div class="media-info">
+                            <h4 class="media-title">FMまいづる『ななこウィークエンドプラス』ゲスト出演</h4>
+                            <p class="media-date">DATE: 2026.01.17</p>
+                            <p class="media-desc">高専での学生生活について, パーソナリティの小島博士と対談させていただきました. 天文宇宙SG創設から衛星開発に至るまでの充実した学生活動をお伝えしました.</p>
+                        </div>
+                    </div>
+
+                    <p>2025/12/14 革新的衛星技術実証4号機 打ち上げライブ中継 KOSEN-2R衛星</p>
+                    <a href="https://www.maizuru-ct.ac.jp/2026/04/27/61107/">
+                       舞鶴高専HP 本校学生2名が参画した「KOSEN-2R」が軌道投入に成功しました。
+                    </a>  
+                    <!-- ▼▼▼ YouTube直接埋め込み ▼▼▼ -->
+                    <div class="youtube-container">
+                        <!-- 下のiframeを、YouTubeからコピーしたものに差し替えます -->
+                        <iframe 
+                            width="560" 
+                            height="315" 
+                            src="https://www.youtube.com/embed/REvfb0KvU_Y?si=Lc_jBThcQyvaih4r" 
+                            title="YouTube video player" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    
+                    <div class="date">2022年4月</div>
+                    <p>2022/04/21 ヒューマンネットワーク高専 30周年記念 "さくらインターネットの過去・現在・未来"</p>
+                    <a href="https://www.youtube.com/watch?v=Fp645PifCLA">
+                       HNK 公式Youtubeチャンネル    
+                    </a> 
+                    <div class="youtube-container">
+                        <!-- 下のiframeを、YouTubeからコピーしたものに差し替えます -->
+                        <iframe 
+                            width="560" 
+                            height="315" 
+                            src="https://www.youtube.com/embed/Fp645PifCLA?si=OE8udP19L911LxOM" 
+                            title="YouTube video player" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    
+                    <div class="date">2016年9月</div>
+                    <p>読売新聞 全国少年少女チャレンジ創造コンテンスト京都地区大会優勝 (記事掲載)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            // すべてのコンテンツを非表示にする
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // すべてのタブボタンの選択状態を解除する
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            // 指定されたタブコンテンツを表示し、ボタンを選択状態にする
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+
+    <!-- ▼▼▼ ページの右下の更新日と署名 ▼▼▼ -->
+    <div class="footer-signature">
+        LAST UPDATED: 2026.08.03<br>
+        Takuma Matsumoto <br> @Tohoku University
+    </div>
+
+</body>
+</html>
