@@ -31,19 +31,12 @@
 
     /* SF・ガラス風の半透明パネル */
     .profile-card, .tabs-container {
-        /* ▼ 透明度を下げて「分厚い金属の塊」を表現するグラデーション ▼ */
-        background: linear-gradient(145deg, rgba(145, 150, 155, 0.85), rgba(55, 60, 65, 0.95));
-        backdrop-filter: blur(5px);
-        /* ▼ 金属のエッジに光が反射している立体感（上・左を明るく、下・右を暗く） ▼ */
-        border-top: 1px solid rgba(255, 255, 255, 0.4);
-        border-left: 1px solid rgba(255, 255, 255, 0.2);
-        border-right: 1px solid rgba(0, 0, 0, 0.6);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.8);
-        /* ▼ 宇宙空間に浮かぶ重い影 ▼ */
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9);
-        
+        background: rgba(15, 23, 42, 0.75);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 210, 255, 0.2);
         padding: 30px;
         border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 210, 255, 0.05);
         margin-bottom: 40px;
     }
 
@@ -170,7 +163,8 @@
 
     .tabs {
         display: flex;
-        background: rgba(10, 15, 30, 0.8);
+        /* ▼ ここもグレーに合わせて変更 ▼ */
+        background: rgba(30, 30, 30, 0.8);
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
@@ -350,33 +344,6 @@
         height: 100%;
         border: none;
     }
-/* ▼▼▼ 研究室HPボタン（アルミプレート風）のスタイル ▼▼▼ */
-    .lab-btn {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 5px 15px; /* ロゴの周りの余白 */
-        background: linear-gradient(145deg, #e2e8f0, #94a3b8); /* 明るいアルミ削り出し調 */
-        border-top: 1px solid #ffffff;
-        border-left: 1px solid #ffffff;
-        border-right: 1px solid #64748b;
-        border-bottom: 1px solid #475569;
-        height: 30px; /* 他のテキストボタンと高さを合わせる調整 */
-    }
-
-    .lab-btn:hover {
-        background: linear-gradient(145deg, #f8fafc, #cbd5e1); /* ホバーで少し明るく反射 */
-        box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4); /* 青い発光エフェクト */
-    }
-
-    .lab-btn img {
-        height: 100%; /* ボタンの高さに合わせて画像を自動調整 */
-        width: auto;
-        object-fit: contain;
-        filter: drop-shadow(0px 1px 1px rgba(255,255,255,0.8)); /* ロゴの視認性を高める微細な白フチ */
-    }
-    /* ▲▲▲ ここまで ▲▲▲ */
-
 </style>
 </head>
 <body>
@@ -412,9 +379,9 @@
             </div>
 
             <div class="social-links">
-                <a href="https://www.space-infrastructure.gxt.ggi.tohoku.ac.jp/" class="social-btn lab-btn">
-                    <img src="picture2.png" alt="Space Infrastructure Engineering Lab">
-                </a>        
+                <a href="https://www.space-infrastructure.gxt.ggi.tohoku.ac.jp/">
+                    桒原研究室HP
+                </a>                
             </div>
 
             <div class="education-timeline">
