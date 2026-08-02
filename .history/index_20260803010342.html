@@ -109,27 +109,23 @@
         display: flex;
         gap: 15px;
         flex-wrap: wrap;
+        align-items: center; /* ▼ 横に並んだボタンの縦の中央をぴったり揃える ▼ */
     }
 
+    /* ボタンの共通設定 */
     .social-btn {
-        display: inline-flex;
+        display: inline-flex; /* ▼ 文字も画像も中央に配置しやすくする ▼ */
         align-items: center;
         justify-content: center;
-        height: 44px; /* 高さを44pxで完全固定 */
-        padding: 0 20px;
+        height: 44px; /* ▼ 全てのボタンの高さを44pxに統一 ▼ */
+        padding: 0 20px; /* 上下はheightで決まるため、左右の余白のみ設定 */
         border-radius: 6px;
         text-decoration: none;
         font-size: 0.95rem;
         font-weight: bold;
         transition: all 0.3s ease;
-        box-sizing: border-box; 
-        border: 1px solid transparent; 
-        box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-        
-        /* ▼▼ 追加：文字をド真ん中に配置するための設定 ▼▼ */
-        line-height: 1; /* 余分な行間（上下の隙間）をリセット */
-        gap: 8px;       /* アイコンと文字がある場合、間隔をきれいにあける */
-        margin: 0;      /* 意図しない外側の余白をリセット */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        box-sizing: border-box; /* 枠線も高さの中に含める */
     }
 
     .facebook-btn {
@@ -178,50 +174,35 @@
         overflow: hidden;
     }
 
- /* ▼▼▼ タブ全体を囲む溝（ベース） ▼▼▼ */
     .tabs {
         display: flex;
-        background: #1e293b; /* パネル奥の暗い金属色 */
-        border-radius: 8px 8px 0 0; /* 上の角だけ少し丸める */
-        border-bottom: 2px solid #94a3b8; /* メインパネルとの接合部を強調 */
-        overflow: hidden;
+        background: rgba(10, 15, 30, 0.8);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    /* ▼▼▼ 各タブボタン（未選択状態：暗いガンメタ） ▼▼▼ */
-    /* .tabsの中にあるbuttonタグ、または .tab クラスすべてに適用 */
-    .tabs button,
-    .tabs .tab {
+    .tab-button {
         flex: 1;
-        padding: 15px;
-        /* 沈んだ暗い金属のグラデーション */
-        background: linear-gradient(180deg, #334155, #0f172a); 
-        color: #94a3b8;
+        padding: 18px 20px;
         border: none;
-        /* 金属パネル同士の継ぎ目（左を明るく、右を暗くして立体感を出す） */
-        border-right: 1px solid #000000;
-        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        background: none;
         font-size: 1rem;
         font-weight: bold;
+        color: #64748b;
         cursor: pointer;
         transition: all 0.3s ease;
-        margin: 0; /* 意図しない余白を消去 */
+        text-align: center;
     }
 
-    /* マウスを乗せた時の反射 */
-    .tabs button:hover,
-    .tabs .tab:hover {
-        background: linear-gradient(180deg, #475569, #1e293b);
-        color: #f8fafc;
+    .tab-button:hover {
+        color: #e2e8f0;
+        background: rgba(255, 255, 255, 0.05);
     }
 
-    /* ▼▼▼ 選択中のタブ（アクティブ状態：手前に出っ張る重厚アルミ） ▼▼▼ */
-    .tabs button.active,
-    .tabs .tab.active {
-        /* 下に続くメインパネルと全く同じアルミグラデーション */
-        background: linear-gradient(145deg, rgba(145, 150, 155, 0.95), rgba(55, 60, 65, 0.95));
-        color: #ffffff;
-        /* パネル上部のエッジに光が当たっている反射を表現 */
-        box-shadow: inset 0 3px 0 #cbd5e1; 
+    .tab-button.active {
+        color: #00d2ff;
+        background: rgba(0, 210, 255, 0.05);
+        border-bottom: 2px solid #00d2ff;
+        box-shadow: inset 0 -5px 10px -5px rgba(0, 210, 255, 0.3);
     }
 
     .tab-content {
@@ -377,23 +358,30 @@
     }
 /* ▼▼▼ 研究室HPボタン（アルミプレート風）のスタイル ▼▼▼ */
     .lab-btn {
-        background: linear-gradient(145deg, #e2e8f0, #94a3b8);
-        border-color: #94a3b8; /* 他と同じ1pxの枠にする */
-        /* 金属の立体感は枠線ではなく「内側への影」で作る */
-        box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #475569, 0 4px 15px rgba(0,0,0,0.3);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 15px; /* ロゴの周りの余白 */
+        background: linear-gradient(145deg, #e2e8f0, #94a3b8); /* 明るいアルミ削り出し調 */
+        border-top: 1px solid #ffffff;
+        border-left: 1px solid #ffffff;
+        border-right: 1px solid #64748b;
+        border-bottom: 1px solid #475569;
+        height: 30px; /* 他のテキストボタンと高さを合わせる調整 */
     }
 
     .lab-btn:hover {
-        background: linear-gradient(145deg, #f8fafc, #cbd5e1);
-        box-shadow: inset 1px 1px 0px #ffffff, inset -1px -1px 0px #475569, 0 0 15px rgba(0, 210, 255, 0.5);
+        background: linear-gradient(145deg, #f8fafc, #cbd5e1); /* ホバーで少し明るく反射 */
+        box-shadow: 0 4px 15px rgba(0, 210, 255, 0.4); /* 青い発光エフェクト */
     }
 
     .lab-btn img {
-        height: 34px; /* ▼ 20pxから34pxに拡大（ボタンの枠に収まる最大サイズ） ▼ */
+        height: 100%; /* ボタンの高さに合わせて画像を自動調整 */
         width: auto;
-        display: block; 
-        filter: drop-shadow(0px 1px 1px rgba(255,255,255,0.8));
+        object-fit: contain;
+        filter: drop-shadow(0px 1px 1px rgba(255,255,255,0.8)); /* ロゴの視認性を高める微細な白フチ */
     }
+    /* ▲▲▲ ここまで ▲▲▲ */
 
 </style>
 </head>
