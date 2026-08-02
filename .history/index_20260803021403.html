@@ -408,7 +408,7 @@
         line-height: 1.6;           /* 行間 */
     }
 
-    /* 出演コンテンツ表示UI ▼▼▼ */
+    /* ▼▼▼ FMまいづる出演実績のカード（機材のモニターパネル風） ▼▼▼ */
     .media-card {
         /* パネルの内側に少し窪んだような暗めのガンメタル */
         background: linear-gradient(145deg, rgba(30, 35, 40, 0.9), rgba(15, 20, 25, 0.95));
@@ -425,17 +425,16 @@
         box-shadow: inset 0 4px 10px rgba(0,0,0,0.6); /* 内側に落ち込む影 */
     }
 
-    /* ▼▼▼ 記念写真の装飾（PC用） ▼▼▼ */
+    /* 記念写真の装飾 */
     .media-photo {
-        width: 240px; /* PCでの写真サイズ */
+        width: 160px; /* 写真の幅 */
         height: auto;
         border-radius: 4px;
         border: 2px solid #64748b; /* 写真の周りを囲む金属フレーム */
         box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* 写真自体が少し浮き出る影 */
-        flex-shrink: 0; /* ★テキスト量に負けて写真が勝手に縮むのを防ぐ */
     }
 
-    /* ▼▼▼ 右側のテキストエリア ▼▼▼ */
+    /* 右側のテキストエリア */
     .media-info {
         flex: 1;
         color: #e2e8f0;
@@ -463,17 +462,15 @@
         color: #cbd5e1;
     }
 
-    /* ▼▼▼ スマホ表示用の調整 ▼▼▼ */
+    /* ▼▼▼ スマホ表示用の調整（画面が狭いときは縦並びにする） ▼▼▼ */
     @media (max-width: 600px) {
         .media-card {
-            flex-direction: column; /* 縦並びにする */
-            text-align: center;     /* 全体を中央揃え */
+            flex-direction: column;
+            text-align: center;
         }
-        
         .media-photo {
-            width: 140px; /* ★スマホ表示のときだけ、このサイズに小さくする */
-            height: auto; /* 縦横比をキープ（伸びないようにする） */
-            margin-bottom: 15px; /* 写真とテキストの間に少し隙間を空ける */
+            width: 100%;
+            max-width: 250px; /* スマホでも写真が大きくなりすぎないように制御 */
         }
     }
 
@@ -677,19 +674,6 @@
                             <p class="media-desc"> 天文宇宙SG創設から衛星開発に至るまでの充実した学生活動をお伝えしました.</p>
                             <a href="https://kosencom.commmune.com/view/post/0/2617283">
                             KOSEN community HP
-                            </a> 
-                        </div>
-                    </div>
-
-                    <div class="date">2026年4月</div>
-                    <div class="media-card">
-                        <img src="NITMaizuru_graduete.JPG" alt="進学時の写真" class="media-photo">
-                        <div class="media-info">
-                            <h4 class="media-title">舞鶴高専HP 進路関係:卒業生の声</h4>
-                            <p class="media-date">DATE: 2026.04.01</p>
-                            <p class="media-desc"> 高専出身者の一人として取り上げていただきました.</p>
-                            <a href="https://www.maizuru-ct.ac.jp/career/obog/">
-                             舞鶴高専HP 進路関係:卒業生の声
                             </a> 
                         </div>
                     </div>

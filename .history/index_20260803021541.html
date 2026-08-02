@@ -408,72 +408,52 @@
         line-height: 1.6;           /* 行間 */
     }
 
-    /* 出演コンテンツ表示UI ▼▼▼ */
-    .media-card {
-        /* パネルの内側に少し窪んだような暗めのガンメタル */
-        background: linear-gradient(145deg, rgba(30, 35, 40, 0.9), rgba(15, 20, 25, 0.95));
-        border-top: 1px solid rgba(0, 0, 0, 0.8);
-        border-left: 1px solid rgba(0, 0, 0, 0.6);
-        border-right: 1px solid rgba(255, 255, 255, 0.1);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
-        padding: 20px;
-        margin-bottom: 25px;
-        display: flex;
-        gap: 20px;
-        align-items: center; /* 写真とテキストを縦の中央で揃える */
-        box-shadow: inset 0 4px 10px rgba(0,0,0,0.6); /* 内側に落ち込む影 */
-    }
-
-    /* ▼▼▼ 記念写真の装飾（PC用） ▼▼▼ */
+    /* ▼▼▼ メディア写真（モニター画面風） ▼▼▼ */
     .media-photo {
-        width: 240px; /* PCでの写真サイズ */
-        height: auto;
+        width: 160px; /* デスクトップ時の固定横幅 */
+        /* ▼ 強制的にアスペクト比を維持して、歪みを防ぐ ▼ */
+        height: auto; 
+        aspect-ratio: auto; /* 元の画像の比率を守る */
+        object-fit: contain; /* フレームの中に収まるように自動調整 */
+        
         border-radius: 4px;
-        border: 2px solid #64748b; /* 写真の周りを囲む金属フレーム */
-        box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* 写真自体が少し浮き出る影 */
-        flex-shrink: 0; /* ★テキスト量に負けて写真が勝手に縮むのを防ぐ */
+        border: 2px solid #64748b;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        
+        display: block; /* 謎の隙間を消す */
+        margin: 0 auto;  /* 中央寄せを確実にする */
     }
 
-    /* ▼▼▼ 右側のテキストエリア ▼▼▼ */
+    /* 右側のテキストエリア */
     .media-info {
         flex: 1;
         color: #e2e8f0;
     }
 
-    .media-title {
-        margin: 0 0 8px 0;
-        font-size: 1.1rem;
-        color: #f8fafc;
-        letter-spacing: 0.5px;
-    }
+    /* （中略：.media-title とかは元のままでOK） */
 
-    /* 日付は計器風のフォントに */
-    .media-date {
-        margin: 0 0 12px 0;
-        font-size: 0.85rem;
-        color: #94a3b8;
-        font-family: 'Courier New', Consolas, monospace;
-    }
-
-    .media-desc {
-        margin: 0;
-        font-size: 0.9rem;
-        line-height: 1.6;
-        color: #cbd5e1;
-    }
-
-    /* ▼▼▼ スマホ表示用の調整 ▼▼▼ */
+    /* ▼▼▼ スマホ表示用の調整（完全に修正） ▼▼▼ */
     @media (max-width: 600px) {
         .media-card {
-            flex-direction: column; /* 縦並びにする */
-            text-align: center;     /* 全体を中央揃え */
+            flex-direction: column; /* 縦並び */
+            align-items: center;    /* 写真とテキストを中央寄せ */
+            text-align: center;
+            padding: 15px;          /* 余白を少し詰める */
         }
         
         .media-photo {
-            width: 140px; /* ★スマホ表示のときだけ、このサイズに小さくする */
-            height: auto; /* 縦横比をキープ（伸びないようにする） */
-            margin-bottom: 15px; /* 写真とテキストの間に少し隙間を空ける */
+            /* ▼ スマホで縦長にならないための重要設定 ▼ */
+            width: auto;            /* 100%にするのをやめ、元の比率を優先 */
+            max-width: 200px;       /* スマホ時のモニターフレームの横幅 */
+            max-height: 150px;      /* 縦長写真だった場合でも、縦の巨大化を防ぐ上限 */
+            margin: 0 0 15px 0;     /* 下にテキストとの余白を追加 */
+            
+            /* フレームの中に、歪ませず、はみ出させずに綺麗に収める */
+            object-fit: contain; 
+        }
+        
+        .media-info {
+            width: 100%; /* テキストエリアは横幅いっぱい */
         }
     }
 
@@ -677,19 +657,6 @@
                             <p class="media-desc"> 天文宇宙SG創設から衛星開発に至るまでの充実した学生活動をお伝えしました.</p>
                             <a href="https://kosencom.commmune.com/view/post/0/2617283">
                             KOSEN community HP
-                            </a> 
-                        </div>
-                    </div>
-
-                    <div class="date">2026年4月</div>
-                    <div class="media-card">
-                        <img src="NITMaizuru_graduete.JPG" alt="進学時の写真" class="media-photo">
-                        <div class="media-info">
-                            <h4 class="media-title">舞鶴高専HP 進路関係:卒業生の声</h4>
-                            <p class="media-date">DATE: 2026.04.01</p>
-                            <p class="media-desc"> 高専出身者の一人として取り上げていただきました.</p>
-                            <a href="https://www.maizuru-ct.ac.jp/career/obog/">
-                             舞鶴高専HP 進路関係:卒業生の声
                             </a> 
                         </div>
                     </div>
