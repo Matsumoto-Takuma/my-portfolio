@@ -601,18 +601,15 @@
 
         <div class="tabs-container">
             <div class="tabs">
-                <!-- ▼ active属性をonclickに直し、classにactiveを追加 ▼ -->
-                <button class="tab-button active" onclick="openTab(event, 'appearances')">News</button>
-                
-                <!-- ▼ classの中に混ざっていたonclickを削除 ▼ -->
-                <button class="tab-button" onclick="openTab(event, 'contests')">Award</button> 
-                
+                <button class="tab-button" active="openTab(event, 'appearances')">News</button>
+                <button class="tab-button onclick" onclick="openTab(event, 'contests')">Award</button> 
                 <button class="tab-button" onclick="openTab(event, 'projects')">Project</button> 
                 <button class="tab-button" onclick="openTab(event, 'licence')">Certification</button>
 
-                <!-- ▼▼▼ 作品集タブ 非公開中 ▼▼▼ 
+                <!-- ▼▼▼ 作品集タブ　非公開中 ▼▼▼ 
                 <button class="tab-button" onclick="openTab(event, 'works')">作品集</button>
                 -->
+
             </div>
             
 
