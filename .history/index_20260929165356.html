@@ -48,6 +48,41 @@
     }
 
     /* プロフィール写真とヘッダー */
+    /* ▼▼▼ ページの一番下を基準にするための重要設定 ▼▼▼ */
+    /* ※もし既に body {} の設定があれば、その中に position: relative; だけ追記してください */
+    body {
+        position: relative; 
+    }
+
+    /* ▼▼▼ オリジナルロゴのスタイル（PC版は左上） ▼▼▼ */
+    .brand-logo-container {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        margin: 0;
+        z-index: 100;
+    }
+
+    .brand-logo {
+        width: 100px;
+        height: auto;
+        mix-blend-mode: screen;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
+    }
+
+    /* ▼▼▼ スマホ表示用の調整（ここを修正！） ▼▼▼ */
+    @media (max-width: 600px) {
+        .brand-logo-container {
+            top: auto;
+            bottom: 30px; /* 右下のテキストと高さを合わせる */
+            left: 15px;   /* 先ほどの20pxから15pxに変更し、少し左に寄せる */
+        }
+        
+        .brand-logo {
+            width: 55px;  /* 75pxから55pxに縮小して、文字との被りを防ぐ */
+        }
+    }
+
     .profile-header {
         display: flex;
         justify-content: space-between;
@@ -76,6 +111,31 @@
         margin-left: 20px;
         background-color: #1a1a2e;
     }
+
+    /* トップバナー用スタイル */
+    .top-banner {
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .top-banner img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1); /* ガラス風の薄い枠線 */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* マウスオーバー時に少し浮き上がるエフェクト */
+    .top-banner a:hover img {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 195, 255, 0.3); /* 宇宙っぽい青い発光 */
+    }
+
+
+
 
     @media (max-width: 600px) {
         .profile-header {
@@ -192,19 +252,32 @@
     .tabs button,
     .tabs .tab {
         flex: 1;
-        padding: 15px;
-        /* 沈んだ暗い金属のグラデーション */
+        /* ★ 上下15px、左右5px に変更し、文字を入れる横のスペースを確保 */
+        padding: 15px 5px;
         background: linear-gradient(180deg, #334155, #0f172a); 
         color: #94a3b8;
         border: none;
-        /* 金属パネル同士の継ぎ目（左を明るく、右を暗くして立体感を出す） */
         border-right: 1px solid #000000;
         border-left: 1px solid rgba(255, 255, 255, 0.1);
-        font-size: 1rem;
+        font-size: 0.95rem; /* 全体的に少しだけ小さく */
         font-weight: bold;
         cursor: pointer;
         transition: all 0.3s ease;
-        margin: 0; /* 意図しない余白を消去 */
+        margin: 0; 
+
+        /* ★ 追加：「Certifi」「cation」と変な位置で改行されるのを防ぐ */
+        white-space: nowrap; 
+    }
+
+    /* ▼▼▼ スマホ表示用の調整 ▼▼▼ */
+    @media (max-width: 600px) {
+        /* ★ クラス名をPC用と統一！ */
+        .tabs button,
+        .tabs .tab {
+            padding: 12px 2px;      /* スマホの時はさらに左右の余白を極限まで詰める */
+            font-size: 0.75rem;     /* Certificationが収まるようにフォントを小さく */
+            letter-spacing: -0.5px; /* 文字同士の隙間をほんの少し詰めて省スペース化 */
+        }
     }
 
     /* マウスを乗せた時の反射 */
@@ -343,6 +416,7 @@
         /* 2行を超えたら「...」で省略する設定 */
         display: -webkit-box;
         -webkit-line-clamp: 2;
+        line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
@@ -480,6 +554,10 @@
 </style>
 </head>
 <body>
+<!-- ▼▼▼ オリジナルロゴ ▼▼▼ -->
+    <div class="brand-logo-container">
+        <img src="Logo.png" alt="takuma. aerospace" class="brand-logo">
+    </div>
 
     <div class="container">
 
@@ -497,6 +575,14 @@
                 <h1>松本 拓真</h1>
             </div>
             
+            <!-- ▼ 追加：MIRAI CREATOR'Z バナー ▼ -->
+            <div class="top-banner">
+                <!-- もし公式の紹介ページなどがあれば、#の部分にURLを入れます -->
+                <a href="#" target="_blank" rel="noopener noreferrer">
+                    <img src="MIRAI-CREATORS2026-TOP.jpg" alt="MIRAI CREATOR'Z 2026 選出">
+                </a>
+            </div>
+
             <div class="profile-meta">
                 <p><span class="label">所属大学</span><br>東北大学大学院 工学研究科 航空宇宙工学専攻</p>
                 <p><span class="label">研究室</span><br>桒原研究室（宇宙インフラ工学研究室）</p>
@@ -506,9 +592,10 @@
                 <a href="https://www.facebook.com/share/19GJZnahoV/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-btn facebook-btn">
                     Facebookプロフィール
                 </a>   
-                <a href="https://x.com/T_SpaceLab2013" target="_blank" rel="noopener noreferrer" class="social-btn x-btn">
+                <!--<a href="https://x.com/T_SpaceLab2013" target="_blank" rel="noopener noreferrer" class="social-btn x-btn">
                     X (Twitter)
                 </a>
+                -->
                 <a href="https://www.space-infrastructure.gxt.ggi.tohoku.ac.jp/" class="social-btn lab-btn">
                     <img src="picture2.png" alt="Space Infrastructure Engineering Lab">
                 </a>  
@@ -530,14 +617,14 @@
                 </div>
                 <div class="timeline-item">
                     <span class="timeline-date">2024年4月 - 2026年3月</span><br>
-                    <span>舞鶴工業高等専門学校 専攻科 電気電子システム工学専攻</span>
+                    <span>舞鶴工業高等専門学校 総合システム工学専攻 電気電子システム工学専攻</span>
                 </div>
                 <div class="timeline-item">
                     <span class="timeline-date">2025年7月 - 2026年3月</span><br>
                     <span>家庭教師 事業展開</span>
                 </div>
                 <div class="timeline-item">
-                    <span class="timeline-date">2025年4月 - 現在</span><br>
+                    <span class="timeline-date">2025年11月 - 現在</span><br>
                     <span>テックランチャー㈱ インターンシップ生</span>
                 </div>
                 <div class="timeline-item">
@@ -549,19 +636,22 @@
 
         <div class="tabs-container">
             <div class="tabs">
-                <button class="tab-button active" onclick="openTab(event, 'contests')">コンテスト</button> 
-                <button class="tab-button" onclick="openTab(event, 'projects')">プロジェクト</button> 
-                <button class="tab-button" onclick="openTab(event, 'licence')">資格</button>
-                <button class="tab-button" onclick="openTab(event, 'appearances')">出演等</button>
+                <!-- ▼ active属性をonclickに直し、classにactiveを追加 ▼ -->
+                <button class="tab-button active" onclick="openTab(event, 'appearances')">News</button>
+                
+                <!-- ▼ classの中に混ざっていたonclickを削除 ▼ -->
+                <button class="tab-button" onclick="openTab(event, 'contests')">Award</button> 
+                
+                <button class="tab-button" onclick="openTab(event, 'projects')">Project</button> 
+                <button class="tab-button" onclick="openTab(event, 'licence')">Certification</button>
 
-                <!-- ▼▼▼ 作品集タブ　非公開中 ▼▼▼ 
+                <!-- ▼▼▼ 作品集タブ 非公開中 ▼▼▼ 
                 <button class="tab-button" onclick="openTab(event, 'works')">作品集</button>
                 -->
-
             </div>
             
 
-            <div id="contests" class="tab-content active">
+            <div id="contests" class="tab-content">
                 <div class="content-item">
                     <h3>主なコンテスト/大会受賞歴</h3>
                     <div class="date">2026年3月</div>
@@ -588,6 +678,16 @@
                     <p>第17回 関西地区ゴム銃射撃大会 新人賞</p>
                     <div class="date">2016年9月</div>
                     <p>全国少年少女 チャレンジ創造コンテスト京都地区大会優勝 全国大会出場</p>
+                    <a href="https://ksvu.or.jp/hagukumu/page/news-hagu/nh-h28/news-hagu-h28.html">
+                       ・京都市教育委員会HP 
+                    </a><br>
+                    <a href="https://cms.edu.city.kyoto.jp/205801/weblog/133320278?tm=20161117191112">
+                       ・京都市立大枝中学校HP 
+                    </a><br>
+                     <a href="https://www.youtube.com/watch?v=jcfTz2Gxafc">
+                       ・全国大会出場チーム紹介 発明協会
+                    </a>                
+
                     <div class="date">2016年1月</div>
                     <p>第10回 トイコンテストグランプリ レーシング部門優勝 大会新記録更新 29.47m走破!!</p>
                     <div class="date">2015年12月</div>
@@ -621,15 +721,15 @@
                     <p>KOSEN-2R衛星プロジェクト ソフトウェア開発担当/舞鶴高専GP代表 (JAXA革新4号)</p>
                     <div class="date">2021年 - 2024</div>
                     <a href="https://www.kenkai.jaxa.jp/kakushin/interview/04/interview04_12.html">
-                          JAXA研究開発部門HP 
+                          ・JAXA研究開発部門HP 
                     </a>
                     <br>
                     <a href="https://www.youtube.com/watch?v=REvfb0KvU_Y">
-                       革新的衛星技術実証4号機（小型実証衛星4号機）打上げライブ中継
+                       ・革新的衛星技術実証4号機（小型実証衛星4号機）打上げライブ中継
                     </a> 
                     <br>
                     <a href="https://kosencom.commmune.com/view/post/0/2617283">
-                       KOSEN community 超小型衛星で『姿勢推定』の技術実証に挑む
+                       ・KOSEN community 超小型衛星で『姿勢推定』の技術実証に挑む
                     </a> 
 
                     <p>KOSEN-1衛星プロジェクト 運用・高専60th イベント企画</p>
@@ -638,7 +738,7 @@
                     <div class="date">2021年 - 2022</div>
                     <p>舞鶴高専プログラマーズコミュニティ 高専プロコン Develoプロジェクト</p>
                     <div class="date">2021年 - 2022</div>
-                    <p>舞鶴高専プログラマーズコミュニティ C言語講習会講師担当</p>
+                    <p>舞鶴高専プログラマーズコミュニティ C言語講習会 マスターマインドプロジェクト 講師担当</p>
                     <div class="date">2019年 - 2020</div>
                     <p>舞鶴高専鉄道研究同好会 小浜線PRプロジェクト</p>
 
@@ -663,9 +763,37 @@
                 </div>
             </div>
 
-            <div id="appearances" class="tab-content">
+            <div id="appearances" class="tab-content active">
                 <div class="content-item">
-                    <h3>出演・プロジェクト広報等コンテンツ</h3>
+                    <h3>News / Content</h3>
+
+                   <div class="date">MIRAI CREATOR`Z 2026 認定</div>
+                    <div class="media-card">
+                        <!-- 記念写真の画像ファイル名を src="..." に指定してください -->
+                        <img src="1083_MIRAI-CREATORZ2026.jpg" alt="イメージ写真" class="media-photo">
+                        <div class="media-info">
+                            <h4 class="media-title">MIRAI CREATOR`Z 2026 認定</h4>
+                            <p class="media-date">DATE: 2026.07.31</p>
+                            <p class="media-desc"> MIRAI CREATOR`Z 2026に認定いただきました. 日本のより良い未来に貢献できるよう尽力してまいります.</p>
+                            <a href="https://web.mirai-creatorz.com/list/%E7%A7%91%E5%AD%A6%E3%83%BB%E7%A0%94%E7%A9%B6?rid=%E6%9D%BE%E6%9C%AC%E6%8B%93%E7%9C%9F">
+                            MIRAI CREATOR`Z 2026 個人紹介ページ
+                            </a> 
+                        </div>
+                    </div>
+
+                    <div class="date">2026年11月 予告</div>
+                    <div class="media-card">
+                        <!-- 記念写真の画像ファイル名を src="..." に指定してください -->
+                        <img src="Gakkai.jpg" alt="イメージ写真" class="media-photo">
+                        <div class="media-info">
+                            <h4 class="media-title">第70回 宇宙科学技術連合会 講演予定『ROS 2を用いた軌道上サービスのためのLiDAR計測シミュレーション環境の構築』</h4>
+                            <p class="media-date">DATE: 2026.11.10-13</p>
+                            <p class="media-desc"> ROS 2を用いた宇宙用LiDARシミュレーション環境構築について発表予定</p>
+                            <a href="https://smartconf.jp/content/sstc70">
+                            第70回 宇宙科学技術連合講演会 | HOME
+                            </a> 
+                        </div>
+                    </div>
 
                     <div class="date">2026年5月</div>
                     <div class="media-card">
@@ -677,6 +805,19 @@
                             <p class="media-desc"> 天文宇宙SG創設から衛星開発に至るまでの充実した学生活動をお伝えしました.</p>
                             <a href="https://kosencom.commmune.com/view/post/0/2617283">
                             KOSEN community HP
+                            </a> 
+                        </div>
+                    </div>
+
+                    <div class="date">2026年4月</div>
+                    <div class="media-card">
+                        <img src="NITMaizuru_graduete.JPG" alt="進学時の写真" class="media-photo">
+                        <div class="media-info">
+                            <h4 class="media-title">舞鶴高専HP 進路関係:卒業生の声</h4>
+                            <p class="media-date">DATE: 2026.04.01</p>
+                            <p class="media-desc"> 高専OBとして取り上げていただきました.</p>
+                            <a href="https://www.maizuru-ct.ac.jp/career/obog/">
+                             舞鶴高専HP 進路関係:卒業生の声
                             </a> 
                         </div>
                     </div>
@@ -718,6 +859,19 @@
                             width="560" 
                             height="315" 
                             src="https://www.youtube.com/embed/REvfb0KvU_Y?si=Lc_jBThcQyvaih4r" 
+                            title="YouTube video player" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+
+                    <div class="youtube-container">
+                        <!-- 下のiframeを、YouTubeからコピーしたものに差し替えます -->
+                        <iframe 
+                            width="560" 
+                            height="315" 
+                            src="https://www.youtube.com/embed/R933NMzP1T0?si=P5-PqxxfCqjIAVj4" 
                             title="YouTube video player" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                             referrerpolicy="strict-origin-when-cross-origin" 
@@ -772,7 +926,7 @@
 
     <!-- ▼▼▼ ページの右下の更新日と署名 ▼▼▼ -->
     <div class="footer-signature">
-        LAST UPDATED: 2026.08.03<br>
+        LAST UPDATED: 2026.08.15<br>
         Takuma Matsumoto <br> @Tohoku University
     </div>
 
